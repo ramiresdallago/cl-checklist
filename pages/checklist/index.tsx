@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { TodoResponse } from './types';
+import Checkbox from '@/components/checkbox';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
@@ -19,9 +20,13 @@ export async function getServerSideProps() {
 
   const sheet = values as string[][];
 
-  const parsedLinesToTodo = sheet.map((line) => {
+  const parsedLinesToTodo = sheet.map((line, index) => {
     const [checkboxColumn, descriptionColumn] = line;
-    return { isChecked: checkboxColumn, description: descriptionColumn };
+    return {
+      isChecked: checkboxColumn === 'TRUE',
+      description: descriptionColumn,
+      checkboxCell: `A${index + 1}`,
+    };
   });
 
   return {
@@ -32,19 +37,26 @@ export async function getServerSideProps() {
 }
 
 export default function Post({ todos }: { todos: TodoResponse[] }) {
+  const handleCheckboxChange = (index: number, isChecked: boolean) => {
+    const updatedTodos = todos.map((todo, idx) =>
+      idx === index ? { ...todo, isChecked } : todo,
+    );
+    console.log('updatedTodos', updatedTodos);
+  };
+
   return (
-    <div className="m-5">
-      <fieldset>
-        <div className="space-y-2">
-          {todos.map((todo) => (
-            <div key={todo.description}>
-              <p>{todo.isChecked}</p>
-              <p>{todo.description}</p>
-              <hr />
-            </div>
-          ))}
-        </div>
-      </fieldset>
-    </div>
+    <fieldset className="m-5">
+      <div className="space-y-2">
+        {todos.map((todo, index) => (
+          <Checkbox
+            key={todo.checkboxCell}
+            id={todo.checkboxCell}
+            label={todo.description}
+            isChecked={todo.isChecked}
+            onChange={(isChecked) => handleCheckboxChange(index, isChecked)}
+          />
+        ))}
+      </div>
+    </fieldset>
   );
 }
