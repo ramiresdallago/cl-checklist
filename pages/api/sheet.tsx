@@ -33,6 +33,7 @@ export default async function handler(
         values: [[value]],
       },
     });
+    res.status(200).json({ message: 'Checkbox updated successfully' });
   } catch (error) {
     res.status(500).json({ message: `Failed to update checkbox ${error}` });
   }
