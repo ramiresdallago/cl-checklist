@@ -1,7 +1,8 @@
 import { google } from 'googleapis';
-import { TodoResponse } from './types';
-import Checkbox from '@/components/checkbox';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Checkbox from '@/components/checkbox';
+import { TodoResponse } from './types';
 
 const SHEET_PAGE = 'Página1';
 const SHEET_RANGE = 'A1:B7';
@@ -39,26 +40,31 @@ export async function getServerSideProps() {
 
 export default function Post({ todos }: { todos: TodoResponse[] }) {
   const router = useRouter();
+  const [loadingCell, setLoadingCell] = useState<string | null>(null);
 
-  const handleCheckboxChange = async (
-    checkboxCell: string,
-    isChecked: boolean,
-  ) => {
-    try {
-      const response = await fetch('/api/sheet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          range: `${SHEET_PAGE}!${checkboxCell}`,
-          value: isChecked ? 'TRUE' : 'FALSE',
-        }),
+  const handleUpdateCheckbox = (checkboxCell: string, isChecked: boolean) => {
+    setLoadingCell(checkboxCell);
+
+    fetch('/api/sheet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        range: `${SHEET_PAGE}!${checkboxCell}`,
+        value: isChecked ? 'TRUE' : 'FALSE',
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return router.replace(router.asPath);
+        }
+        throw new Error('Failed to update checkbox');
+      })
+      .catch((error) => {
+        console.error('Failed to update checkbox:', error);
+      })
+      .finally(() => {
+        setLoadingCell(null);
       });
-      if (response.ok) {
-        router.replace(router.asPath);
-      }
-    } catch (error) {
-      console.error('Failed to update checkbox:', error);
-    }
   };
 
   return (
@@ -70,8 +76,9 @@ export default function Post({ todos }: { todos: TodoResponse[] }) {
             id={todo.checkboxCell}
             label={todo.description}
             isChecked={todo.isChecked}
+            isLoading={loadingCell === todo.checkboxCell}
             onChange={(isChecked) =>
-              handleCheckboxChange(todo.checkboxCell, isChecked)
+              handleUpdateCheckbox(todo.checkboxCell, isChecked)
             }
           />
         ))}

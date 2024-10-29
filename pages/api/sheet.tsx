@@ -25,7 +25,7 @@ export default async function handler(
   try {
     const sheets = getGoogleSheetsClient();
 
-    sheets.spreadsheets.values.update({
+    await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.SHEET_ID as string,
       range,
       valueInputOption: 'USER_ENTERED',
