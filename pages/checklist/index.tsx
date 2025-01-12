@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import Checkbox from '@/components/checkbox';
 import { TodoResponse } from './types';
 
-const SHEET_PAGE = 'Página1';
-const SHEET_RANGE = 'A1:B7';
+const SHEET_PAGE = 'APOIO';
+const SHEET_RANGE = 'A3:B9';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
@@ -24,10 +24,11 @@ export async function getServerSideProps() {
 
   const parsedLinesToTodo = sheet.map((line, index) => {
     const [checkboxColumn, descriptionColumn] = line;
+    const CHECKLIST_START_ROW_OFFSET = 3; // Offset between first row and checklist first element
     return {
       isChecked: checkboxColumn === 'TRUE',
       description: descriptionColumn,
-      checkboxCell: `A${index + 1}`,
+      checkboxCell: `A${index + CHECKLIST_START_ROW_OFFSET}`,
     };
   });
 
