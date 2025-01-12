@@ -1,9 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Setting up environments variables
+# Project Description: Volunteer Task Manager for Sunday Services
 
+## Pitch
+Transforming Team Collaboration and Task Management in Your Church
+
+This project is a dynamic task management tool built with Next.js and Google Sheets API, designed to streamline volunteer coordination for Sunday services at local churches.
+
+### 🚀 Why This Project?
+Managing a team of volunteers can be challenging, especially when tasks need to be tracked and updated for each Sunday service. This app eliminates guesswork, enabling your team to stay on top of their responsibilities, track progress, and focus on what matters most—serving your congregation.
+
+### 🌟 Features
+#### Centralized Checklist
+Integrate seamlessly with Google Sheets to maintain an up-to-date checklist. Volunteers can see what tasks are done and what needs attention.
+
+#### Interactive To-Do List
+Create, assign, and update tasks effortlessly, ensuring no detail is overlooked.
+
+#### Personalized Dashboards
+Volunteers get tailored views of tasks relevant to their roles, reducing confusion and maximizing efficiency.
+
+#### Sunday Service Focused
+Designed with the unique dynamics of church services in mind, ensuring every aspect is covered—before, during, and after each service.
+
+### 🎯 Benefits
+- Enhanced Communication: No more missed tasks or last-minute surprises.
+- Improved Accountability: Everyone knows their role and progress at a glance.
+- Increased Efficiency: Spend less time coordinating and more time focusing on your mission.
+
+### 📖 How It Works
+Setup Google Sheet Integration: Connect the app to a Google Sheet containing your master checklist.
+Add Tasks: Use the intuitive interface to add and assign tasks.
+Track Progress: Volunteers mark tasks as complete, providing a real-time view of service readiness.
+Review & Improve: After each service, analyze what was done and plan for the next one.
+
+# ⚙️ Technical Specifications
+## Front-End
+
+### Framework: Next.js
+Server-side rendering for fast initial load times and improved SEO.
+API routes to handle server-side logic for data synchronization.
+
+### Styling: Tailwind CSS
+Utility-first CSS framework for responsive and modern UI design.
+Ensures a clean and scalable styling structure.
+
+## Back-End Integration
+### Google Sheets API
+Reads and writes data to a Google Sheet for real-time updates.
+
+### API Routes
+Custom endpoints in Next.js to fetch, process, and push data to Google Sheets.
+Optimized with caching strategies for performance.
+
+## Data Management
+Data Source: Google Sheets
+Serves as the dynamic database for checklist and task data.
+Editable via both the app interface and directly in Google Sheets.
+Key Functionalities
+Task Synchronization
+
+Two-way data binding between the Google Sheet and the app.
+Real-time updates using API calls to reflect changes instantly.
+Role-Based Views
+
+Customized task visibility based on volunteer roles.
+Filtered views for better focus and productivity.
+Progress Tracking
+
+Real-time status updates for each task in the checklist.
+Easy distinction between completed and pending tasks.
+
+## Development Stack
+Languages: TypeScript, JavaScript
+Version Control: Git and GitHub
+Testing: Jest and React Testing Library
+Linting & Formatting: ESLint and Prettier
+
+--- 
+
+# Setting up
+
+## Environments variables
 1. Create a secrets.json
 2. Fill secrets.json based on KEYS in GCP: https://console.cloud.google.com/iam-admin/serviceaccounts/details/112709413228905289582;edit=true/keys?project=cidade-luz
+## Projects goals
+- [x] List items based on google spreadsheet
+- [x] Update items based on click on checklist
+- [ ] Get range dynamically
+- [ ] Split items based on sections
+- [ ] Split items based on team position
+- [ ] Add reset checklist button
 
 ## Getting Started
 
@@ -18,28 +104,3 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
