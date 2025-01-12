@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Setting up environments variables
+
+1. Create a secrets.json
+2. Fill secrets.json based on KEYS in GCP: https://console.cloud.google.com/iam-admin/serviceaccounts/details/112709413228905289582;edit=true/keys?project=cidade-luz
+
 ## Getting Started
 
 First, run the development server:
