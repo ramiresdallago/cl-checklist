@@ -86,10 +86,11 @@ Linting & Formatting: ESLint and Prettier
 ## Projects goals
 - [x] List items based on google spreadsheet
 - [x] Update items based on click on checklist
-- [ ] Get range dynamically
+- [x] Get range dynamically
 - [ ] Split items based on sections
 - [ ] Split items based on team position
 - [ ] Add reset checklist button
+- [ ] Deploy
 
 ## Getting Started
 
