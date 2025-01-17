@@ -5,7 +5,6 @@ import Checkbox from '@/components/checkbox';
 import { TodoResponse } from './types';
 
 const SHEET_PAGE = 'APOIO';
-const SHEET_RANGE = 'A3:B9';
 
 export async function getServerSideProps() {
   const auth = await google.auth.getClient({
@@ -13,11 +12,19 @@ export async function getServerSideProps() {
   });
   const sheets = google.sheets({ version: 'v4', auth });
 
+  const RANGE_CELL = 'B2';
+
+  const spreadsheetsReturn = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.SHEET_ID,
+    range: `${SHEET_PAGE}!${RANGE_CELL}`,
+  });
+
+  const [rangeCell] = spreadsheetsReturn.data.values as string[][];
   const {
     data: { values },
   } = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
-    range: `${SHEET_PAGE}!${SHEET_RANGE}`,
+    range: `${SHEET_PAGE}!${rangeCell}`,
   });
 
   const sheet = values as string[][];
