@@ -87,7 +87,7 @@ Linting & Formatting: ESLint and Prettier
 - [x] List items based on google spreadsheet
 - [x] Update items based on click on checklist
 - [x] Get range dynamically
-- [ ] Split items based on sections
+- [x] Split items based on sections
 - [ ] Split items based on team position
 - [ ] Add reset checklist button
 - [ ] Deploy
