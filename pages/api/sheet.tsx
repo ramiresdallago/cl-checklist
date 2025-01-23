@@ -9,6 +9,7 @@ type UpdateCheckboxRequest = {
 export const getGoogleSheetsClient = (): sheets_v4.Sheets => {
   const auth = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS || ''),
   });
   return google.sheets({ version: 'v4', auth });
 };
