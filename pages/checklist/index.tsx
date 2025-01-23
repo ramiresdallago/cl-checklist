@@ -159,10 +159,11 @@ export default function Post({
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log(data);
+      console.error("testeeee");
     };
 
-    eventSource.onerror = () => {
-      console.error("EventSource failed");
+    eventSource.onerror = (e) => {
+      console.error("EventSource failed", e);
       eventSource.close();
     };
 
