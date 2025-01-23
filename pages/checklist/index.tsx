@@ -2,7 +2,6 @@ import Checkbox from '@/components/checkbox';
 import { google } from 'googleapis';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { TodoResponse } from './types';
 
 const SHEET_PAGE = 'APOIO';
 
@@ -132,6 +131,11 @@ export async function getServerSideProps() {
       parsedPostServiceLinesToTodo,
     },
   };
+}
+export interface TodoResponse {
+  isChecked: boolean;
+  description: string;
+  checkboxCell: string;
 }
 
 export default function Post({
