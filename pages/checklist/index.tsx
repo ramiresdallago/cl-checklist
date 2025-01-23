@@ -1,7 +1,7 @@
-import { google } from 'googleapis';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Checkbox from '@/components/checkbox';
+import { google } from 'googleapis';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { TodoResponse } from './types';
 
 const SHEET_PAGE = 'APOIO';
@@ -147,6 +147,25 @@ export default function Post({
 }) {
   const router = useRouter();
   const [loadingCell, setLoadingCell] = useState<string | null>(null);
+
+  useEffect(() => {
+    const eventSource = new EventSource("/api/google-sheets-webhook");
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log(data);
+    };
+
+    eventSource.onerror = () => {
+      console.error("EventSource failed");
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+
 
   const handleUpdateCheckbox = (checkboxCell: string, isChecked: boolean) => {
     setLoadingCell(checkboxCell);
